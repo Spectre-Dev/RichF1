@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="IIS Web Application Name" description="" value="RichF1" tags="IisApp">
+    <parameterEntry kind="ProviderPath" scope="IisApp" match="^C:\\Users\\Richie\\Documents\\Visual\ Studio\ 2015\\Projects\\RichF1\\RichF1\\obj\\Release\\Package\\PackageTmp$" />
+    <parameterEntry kind="ProviderPath" scope="setAcl" match="^C:\\Users\\Richie\\Documents\\Visual\ Studio\ 2015\\Projects\\RichF1\\RichF1\\obj\\Release\\Package\\PackageTmp$" />
+  </parameter>
+  <parameter name="RichF1ModelContext-Web.config Connection String" description="" value="Data Source=tcp:tqs4m15r09.database.windows.net,1433;Initial Catalog=RichF1AhAxTv1OC3;User Id=userAdmin@tqs4m15r09;Password=Zxcvbnm99" tags="">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\Richie\\Documents\\Visual\ Studio\ 2015\\Projects\\RichF1\\RichF1\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='RichF1ModelContext']/@connectionString" />
+  </parameter>
+  <parameter name="DefaultConnection-Web.config Connection String" description="DefaultConnection Connection String used in web.config by the application to access the database." value="Data Source=(LocalDb)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\aspnet-RichF1-20151204024844b.mdf;Initial Catalog=aspnet-RichF1-20151204024844b;Integrated Security=True" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\Richie\\Documents\\Visual\ Studio\ 2015\\Projects\\RichF1\\RichF1\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='DefaultConnection']/@connectionString" />
+  </parameter>
+</parameters>

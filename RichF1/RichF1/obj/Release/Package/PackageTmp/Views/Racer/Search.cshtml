@@ -1,0 +1,76 @@
+﻿
+@{
+    ViewBag.Title = "Search";
+}
+
+<h2>Search Drivers</h2>
+<div>           @*this is not the auto complete version*@
+    <input id="searchString" type="text" placeholder="Search Term" />
+    <input type="button" value="Search" onclick="DoSearch();" />
+</div>
+<div id="resultsDiv"></div>
+
+                @*This is the auto complete one*@
+<h2>Auto search racers</h2>
+<div>
+    <input id="searchStringAuto" type="text" placeholder="Search Here:" />
+    <div id="resultsDivAuto"></div>
+</div>
+
+
+@section scripts{
+    <script type="text/javascript">
+        function DoSearch() {
+            $("#resultsDiv").html("");
+            var namePart = { "namePart": $("#searchString").val() };
+            $.ajax({
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                url: "/RichF1Service.asmx/GetRacersByName",
+                data: JSON.stringify(namePart),
+                dataType: "json",
+                async: true,
+                success: function (result, textStatus) {
+                    if (textStatus == "success") {
+                        for (var i = 0; i < result.d.length; i++) {
+                            //this is me trying to make hyperlink results
+                              @*//@Html.ActionLink("Details", new { id=result.d[i] })*@
+
+                            $("#resultsDiv").html($("#resultsDiv").html() + result.d[i] + "<br/>");
+                        }
+                    }
+                },
+                error: function (result, status, error) {
+                    $("#resultsDiv").html("Error in searching... <br/>");
+                }
+            });
+        }
+        //this is the auto complete method
+        $(document).ready(function () {         
+            $("#searchStringAuto").keyup(function () {
+                $("#resultsDivAuto").html("");
+                var namePart = { "namePart": $("#searchStringAuto").val() };
+                $.ajax({
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    url: "/RichF1Service.asmx/GetRacerByNameAuto",
+                    data: JSON.stringify(namePart),
+                    dataType: "json",
+                    async: true,
+                    success: function (result, textStatus) {
+                        if (textStatus == "success") {
+                            for (var i = 0; i < result.d.length; i++) {
+                                $("#resultsDivAuto").html($("#resultsDivAuto").html() + result.d[i] + "<br/>");
+                            }
+                        }
+                        $("#resultsDivAuto").show();
+                        $("#searchStringAuto").css("background", "#FFF");
+                    }
+
+                });
+            });
+
+        });
+</script>
+
+    }

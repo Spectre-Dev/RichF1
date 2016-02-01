@@ -1,0 +1,108 @@
+﻿@using RichF1.CustomHTMLHelpers;        @*using statement to specify what Html.Image is from my custom HtmlHelper.*@ 
+@model IEnumerable<RichF1.Models.RaceTrack>
+
+@section scripts {
+    @*this is the on hover javascript*@
+    <script type="text/javascript">
+
+    $("tr").not(':first').hover(
+        function () {
+            $(this).css("background", "#DA020E");
+        },
+        function () {
+            $(this).css("background", "");
+        }
+        );
+
+    //this is the auto search method
+    $(document).ready(function () {
+        $("#searchStringAuto").keyup(function () {
+            $("#resultsDivAuto").html("");
+            var namePart = { "namePart": $("#searchStringAuto").val() };
+            $.ajax({
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                url: "/RichF1Service.asmx/GetTrackByNameAuto",
+                data: JSON.stringify(namePart),
+                dataType: "json",
+                async: true,
+                success: function (result, textStatus) {
+                    if (textStatus == "success") {
+                        for (var i = 0; i < result.d.length; i++) {
+                            $("#resultsDivAuto").html($("#resultsDivAuto").html() + result.d[i] + "<br/>");
+                        }
+                    }
+                    $("#resultsDivAuto").show();
+                    $("#searchStringAuto").css("background", "#FFF");
+                }
+            });
+        });
+    });
+    </script>
+}      @*end section stripts*@
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Race Tracks</h2>
+<div>
+    <button type="button" onclick="">@Html.ActionLink("Add New Track", "Create")</button>
+    <input id="searchStringAuto" class="mySearchControls" type="text" placeholder="Search Here:" />
+</div>
+<div>
+    <div id="resultsDivAuto" class="mySearchControls">Results Here:</div>
+</div>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TrackImg)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Trackname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RaceTrackNum)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Location)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EstablishedDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RaceMonth)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>    @*my custom html helper is used to take image path strings and concatenate them with img tags for output in html.*@
+                @*located in ~/CustomHTMLHelpers/CustomHtmlHelpers.cs*@
+            @Html.Image(item.TrackImg)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Trackname)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RaceTrackNum)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Location)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EstablishedDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RaceMonth)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.RaceTrackId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.RaceTrackId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.RaceTrackId })
+        </td>
+    </tr>
+}
+
+</table>

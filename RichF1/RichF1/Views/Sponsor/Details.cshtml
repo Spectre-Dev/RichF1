@@ -1,0 +1,42 @@
+﻿@model RichF1.Models.Sponsor
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Sponsor</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.SponsorName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SponsorName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SponsorCountry)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SponsorCountry)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateFounded)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateFounded)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.SponsorId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,115 @@
+﻿@using RichF1.CustomHTMLHelpers;
+@model IEnumerable<RichF1.Models.Racer>
+
+@section scripts {
+@*this is the on hover javascript*@
+<script type="text/javascript">
+
+    $("tr").not(':first').hover(
+        function () {
+            $(this).css("background", "#DA020E");
+        },
+        function () {
+            $(this).css("background", "");
+        }
+        );
+
+    //this is the auto search method
+    $(document).ready(function () {
+        $("#searchStringAuto").keyup(function () {
+            $("#resultsDivAuto").html("<table> <th>Driver Pic</th><th>Driver Name:</th> </table>");
+            var namePart = { "namePart": $("#searchStringAuto").val() };
+            $.ajax({
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                url: "/RichF1Service.asmx/GetRacerByNameAuto",
+                data: JSON.stringify(namePart),
+                dataType: "json",
+                async: true,
+                success: function (result, textStatus) {
+                    if (textStatus == "success") {
+                        for (var i = 0; i < result.d.length; i++) { //this below is how im outputting hyperlinks in search
+                            //$("#resultsDivAuto").html($("#resultsDivAuto").html() + "<a href='/Racer/Details/ '>" + result.d[i] + "</a>" + "<br/>");
+                            $("#resultsDivAuto").html($("#resultsDivAuto").html() + "<a href='/Racer/Details/" + [i] + " '>" + result.d[i] + "</a> <br/>");
+                        }
+                    }
+                    $("#resultsDivAuto").show();
+                    $("#searchStringAuto").css("background", "#FFF");
+                }
+            });
+        });
+    });
+</script>
+ }      @*end section stripts*@
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Formula 1 Drivers:</h2>
+<div>
+    <button type="button" onclick="">@Html.ActionLink("Add New Driver", "Create")</button>
+    <input id="searchStringAuto" class="mySearchControls" type="text" placeholder="Search Here:" />
+</div>
+<div>
+    <div id="resultsDivAuto" class="mySearchControls">Results Here:</div>
+</div>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.RacerImg)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RacerName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RacerAge)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RacerNation)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RacerNum)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RaceWins)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ChampWins)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @*outputting the image links as URLs by using a custom HTML helper class*@
+            @Html.Image(@item.RacerImg)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RacerName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RacerAge)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RacerNation)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RacerNum)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RaceWins)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ChampWins)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.RacerId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.RacerId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.RacerId })
+        </td>
+    </tr>
+}
+
+</table>

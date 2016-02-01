@@ -1,0 +1,80 @@
+﻿@using RichF1.CustomHTMLHelpers;
+@model RichF1.Models.Racer
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Racer</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.RacerImg)
+        </dt>
+        <dd>
+            @*@Html.DisplayFor(model => model.RacerImg)*@
+            @Html.Image(@Model.RacerImg)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.RacerName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RacerName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RacerAge)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RacerAge)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RacerNation)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RacerNation)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RacerNum)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RacerNum)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RaceWins)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RaceWins)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ChampWins)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ChampWins)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

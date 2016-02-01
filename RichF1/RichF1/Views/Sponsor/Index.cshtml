@@ -1,0 +1,58 @@
+﻿@model IEnumerable<RichF1.Models.Sponsor>
+
+
+@section scripts {
+    @*this is the on hover javascript that changes the color of the table rod*@
+    <script type="text/javascript">
+
+    $("tr").not(':first').hover(
+        function () {
+            $(this).css("background", "#DA020E");
+        },
+        function () {
+            $(this).css("background", "");
+        }
+        );
+    </script>
+    }
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Sponsors</h2>
+<button type="button" onclick="">@Html.ActionLink("Add New Sponsor", "Create")</button>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.SponsorName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SponsorCountry)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateFounded)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.SponsorName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SponsorCountry)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateFounded)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.SponsorId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.SponsorId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.SponsorId })
+        </td>
+    </tr>
+}
+
+</table>

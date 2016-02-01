@@ -1,0 +1,65 @@
+﻿@using RichF1.CustomHTMLHelpers;
+@model RichF1.Models.RaceTrack
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>RaceTrack</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TrackImg)
+        </dt>
+        <dd>
+            @Html.Image(Model.TrackImg)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Trackname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Trackname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RaceTrackNum)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RaceTrackNum)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Location)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Location)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EstablishedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EstablishedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RaceMonth)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RaceMonth)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.RaceTrackId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
